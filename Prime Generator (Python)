@@ -1,0 +1,24 @@
+'''
+Prime Number Generator by Jeff.
+(I've also made an equivalent program in Java. You can check it out here: https://code.sololearn.com/cQrN08jRkxqL/#java)
+Can easily compute prime numbers below 5000. Enter higher values at your own risk.
+Feedback is much appreciated! Please let me know if there's anything I can improve on. :D
+'''
+
+
+x = int(input("Highest number to consider: "))
+assert x > 1,"Your number isn't prime."
+print(x)
+primes = [2]
+
+def addprimes(i):
+    for j in primes:
+        if i % j == 0:
+            break
+    else:
+        primes.append(i)
+
+for k in range(3,x + 1,2): # A faster method might require a more complicated "step" calculation.
+    addprimes(k)
+
+print("Your primes within the range %i are: " % x, ", ".join(list(map(str,primes))))
