@@ -1,0 +1,47 @@
+'''
+Prime number tester and next prime number finder by Jeff [12/30/2017].
+This program can process any integer between 1 and 1000000. Input any number beyond that range at your own risk.
+I'd love to hear your feedback on this as well! Please tell me if there's anything I can improve on. Thanks. :)
+'''
+
+from math import sqrt
+
+# This tests for primes.
+def getprimes(x):
+    count = 0
+    print("The factors of %i are: " % x)
+    for y in range(1, x + 1):
+        if x % y == 0:
+            print('%i' % y, end=' ') # prints "y" as an integer.
+            count += 1
+    if count == 2:
+        print('\nCongrats. You found a prime number!')
+        exit()
+    else:
+        print('\nThis isn\'t a prime number.')
+
+
+x = int(input()) #Enter your positive integer here...
+if x <= 0:
+    print('Not a valid input. Please try again...')
+    exit()
+getprimes(x)
+
+
+def prime(x):
+    y = []
+    # Testing for half the factors of x w/o sacrificing any odd values.
+    for a in range(1, int(sqrt(x)) + 1, 2):
+        if x % a == 0:
+            y.append(a)
+    if len(y) == 1:
+        print('%i is your next prime.' % x)
+    else:
+        prime(x + 2)
+
+
+# Basically any even integer is not prime. Also, 1 isn't prime.
+if (x % 2 != 0 and x != 1) or x == 2:
+    prime(x)
+else:
+    prime(x + 1)
