@@ -1,0 +1,53 @@
+/*
+Prime Number Generator by Jeff. Python version can be found here: https://code.sololearn.com/clTmnj2HP2Ka/#py
+Due to the nature of the compiler the website uses, this program can find prime numbers up to 5000 before TLE. Test higher numbers at your own risk.
+Feedback is much appreciated! Please let me know if there's anything I can improve on. :D
+*/
+
+
+import java.util.Scanner;
+
+public class PrimeNumGen {
+	static int[] addPrimes(int x) { 
+		int[] primes = new int[(int) x]; //If there's any way to easily change the size of arrays in Java like in Python that would be really helpful.
+		int count = 0;
+		primes[0] = 2; 
+		String Test = "Null";
+		for (int i = 3; i <= x; i += 2) {
+			for (int j: primes) {
+				if (j == 0) {
+					break;
+				}
+				else if (i % j == 0) {
+					Test = "False";
+					break;
+				}
+				else {
+					Test = "True";
+				}
+			}
+			if (Test == "True") {
+				primes[++count] = i; //Append prime number to primes array.
+			}
+		}
+		return primes;
+	}
+	public static void main(String[] args) {
+		System.out.print("Enter your positive integer here: "); //Input Prompt
+		Scanner x = new Scanner(System.in);
+		int r = x.nextInt();
+		System.out.println(r);
+		if (r < 2) { //Remember 1 is not a prime number.
+			System.out.println("Not a prime number. Please try again...");
+		}
+		else {
+		    System.out.print("Your primes for " + r + " are: ");
+		    int list[] = addPrimes(r);
+		    for (int k: list) {
+    			if (k == 0) 
+	    			break;
+		    	System.out.print(k + ", ");
+		    }
+		}
+	}
+}
