@@ -1,0 +1,78 @@
+'''
+[M💙 Challenge] Alphabetical Balance Scale 🔠⚖️
+
+Monday Blue 💙 Challenge Series #14
+
+Let's play with alphabets this week! This time we will need to put alphabets onto the balance scale at 2 ends to achieve equilibrium.
+
+If it's impossible to do so, determine the letter need to be added with minimum weight. The letters weight from 1 to 26 which corresponds to A to Z respectively.
+
+💼 TASK
+Write a program to accept a string of uppercase letters and split into 2 groups which produce the minimum sum difference by using an underscore character "_".
+
+If the sum difference is not ZERO, we will need to add a letter (surround it with round brackets) on either side to achieve equilibrium.
+
+🔧 TEST CASE
+"A" ➡ (A)_A or A_(A)
+"AA" ➡ A_A
+"AAA" ➡ A(A)_AA or AA_A(A)
+"ABC" ➡ AB_C
+"ABBA" ➡ AB_BA
+"ABCD" ➡ ABC_D(B)
+"ZEPHYRKOO" ➡ ZEPHY_RKOO(U)
+"MONDAYBLUE" ➡ MONDA(R)_YBLUE
+"CHRISTMAS" ➡ CHRIS_TMAS(D)
+"IS" ➡ I(J)_S
+"COMING" ➡ COM_ING(A)
+"SOON" ➡ SO_ON(E)
+
+❤ BONUS
+Clear-cut and optimized approach is encouraged.
+
+Happy Coding!!! 😁💻
+'''
+
+# Some preliminary assignments before we begin.
+alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+text = input().upper()  # <- so the user can input whatever case they want.
+numlist, Tlist = [], []
+
+# Adding elements to lists.
+for i in text:
+    numlist.append(alpha.index(i) + 1)
+    Tlist.append(i)
+# debug print(numlist)
+
+# Now comparing the difference of the sums:
+diflist = []
+for j in range(len(numlist)+1):
+    sum1 = sum(numlist[:j])
+    sum2 = sum(numlist[j:len(text)])  # Doesn't really matter which length I take. They're all the same anyway.
+    # debug print(sum1,sum2)
+    if sum1 == sum2:  # If the scale is balanced, insert the underscore in the 'j'th element. 
+        Tlist.insert(j, "_")
+        print(''.join(Tlist))
+        exit()
+    # Record all differences that occur.
+    else:
+        diflist.append(sum1-sum2)
+
+#debug print(diflist)
+
+# I prefer seeing what all the possibilities are rather than just outputting one:
+Tlist = tuple(Tlist) # So the stupid methods don't change both lists, as we'll see later on.
+result = []
+
+for k in diflist:
+    Tlist2 = list(Tlist) # This is where the tuple comes in handy.
+    if abs(k)>26: # Ignores erroneous cases where a single letter "after z" needs to be added.
+        continue
+    elif k < 0: # Insert letter @ beginning of text.
+        Tlist2.insert(0,'(%s)' % alpha[abs(k)-1])
+        Tlist2.insert(diflist.index(k)+1, "_")
+    else: # Insert letter @ end of text.
+        Tlist2.append('(%s)' % alpha[abs(k) - 1])
+        Tlist2.insert(diflist.index(k), "_")
+    result.append(''.join(Tlist2))
+
+print(' or '.join(result))
