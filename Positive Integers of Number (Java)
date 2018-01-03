@@ -1,0 +1,21 @@
+/*
+CHALLENGE: Integers, roots and division
+The point is to:
+Find all the positive integers "n" that are divisible by all the positive integers not larger than the square root of n.
+Any language is welcomed.
+*/
+
+import java.util.Scanner;
+
+public class IntFinder {
+	public static void main(String[] args) {
+		Scanner num = new Scanner (System.in);
+		long var = num.nextLong();
+		System.out.print("The positive integers for " + var + " are: 1" );
+		for (int i = 2; i <= Math.sqrt(var); i++) {
+			if (var % i == 0) {
+				System.out.print(" and " + i);
+			}
+		}
+	}
+}
