@@ -1,0 +1,71 @@
+# Import module that generates random numbers for singleplayer computer opponent.
+import random
+
+
+def invalid():
+    """
+    In case if user enters invalid input,
+    this will get them back into the game.
+    """
+    print("If you see this message, you did something very wrong. Please try again")
+    gamemode()
+
+
+def gamemode():
+    try:
+        mode = int(input('[1] or [2] players? '))
+    except ValueError:
+        print('Hey watch where you\'re typing! \nPlease try again...')
+        gamemode()
+    if mode == 1:
+        game1()
+    elif mode == 2:
+        game2()
+    else:
+        invalid()
+
+
+def game1(): #Singleplayer against bot
+    choose = input('[r]ock, [p]aper or [s]cissors? Choose your weapon: ')
+    options = ['r','s','p']
+    Options = ['rock','scissors','paper'] #Oddly enough the game only works if the choices are in this exact order.
+    if choose in ["quit","Quit","q"]:
+        return "Now leaving the game. Thank you for playing"
+    elif choose not in options:
+        print('Invalid input. Please try again...')
+        game1()
+    elif choose in options:
+        bot = random.randint(0,2)
+        print('Bot chose %s' % (Options[bot]))
+        if options[bot] in choose:
+            print('Tie, no one wins!')
+        else:
+            if (bot - 1) == -1:
+                bot += 3
+            print('You win! Awesome!') if choose in options[bot - 1] else print('You lose, better luck next time.')
+        game1()
+
+
+def game2(): #Multiplayer
+    #This was a bad thinking process since Player 2 can always see what Player 1 chooses in the console.
+    player1 = input('[r]ock, [p]aper or [s]cissors? Choose your weapon, Player 1: ')
+    player2 = input('[r]ock, [p]aper or [s]cissors? Choose your weapon, Player 2: ')
+    options = ['r', 's', 'p']
+    if (player1 or player2) in ["quit","Quit","q"]: #Only one player needs to type in quit to quit the game.
+        return "Now leaving the game. Thank you for playing"
+    elif (player1 not in options) or (player2 not in options):
+        print('Invalid input. Please try again...')
+        game2()
+    else:
+        if player2 in player1:
+            print('Tie, no one wins!')
+        else:
+            player2 = options.index(player2)
+            if (player2 - 1) == -1:
+                player2 += 3
+            print('Player 1 wins!') if player1 in options[player2 - 1] else print('Player 2 wins!')
+        game2()
+
+
+# Functions loaded, starting game...
+gamemode()
