@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	long int a = 1, b = 2, sum = 0, range, c;
+	cout << "What's the range?: ";
+	cin >> range;
+	while (b <= range) {
+		if (b % 2 == 0) {
+			sum += b;
+		}
+		c = a; //Need assignment to preserve value of 1st #. 
+		a = b;  //1st becomes 2nd #.
+		b += c; //2nd becomes 2nd + 1st #.
+	}
+	cout << endl << "The sum is: " << sum << endl;
+	return 0;
+}
