@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+/* Finds the sum of all the even fibonacci numbers up to and including "range" */
 int main() {
 	long int a = 1, b = 2, sum = 0, range, c;
 	cout << "What's the range?: ";
